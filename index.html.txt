@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextAlchemy AI | Advanced Extraction Models</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* --- Core Variables & Theming (Red, Yellow, Black) --- */
+        :root {
+            --bg-main: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #121212;
+            --text-main: #ffffff;
+            --text-dim: #a3a3a3;
+            --accent-primary: #e63946; /* Aggressive Tech Red */
+            --accent-glow: rgba(230, 57, 70, 0.4);
+            --accent-secondary: #ffcc00; /* High-Contrast Yellow */
+            
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 10px 40px -10px rgba(230, 57, 70, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* --- Reusable Components --- */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), #c1121f);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
+        }
+
+        /* --- Navigation with Dynamic Color Effect --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        
+        .nav-links a { 
+            color: var(--text-dim); 
+            text-decoration: none; 
+            font-weight: 500; 
+            transition: color 0.3s ease; 
+            font-size: 0.95rem; 
+            position: relative;
+            padding-bottom: 4px;
+        }
+        
+        /* The Red/Yellow Glowing Hover Underline */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 0 10px var(--accent-glow);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover { 
+            color: var(--text-main); 
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 12rem 5% 8rem;
+            text-align: center;
+            background: radial-gradient(circle at top center, #2a080a 0%, var(--bg-main) 60%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--accent-secondary);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 4.8rem;
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            font-size: 1.25rem;
+            max-width: 750px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        /* --- Technical Details Grid --- */
+        .architecture-section {
+            padding: 4rem 5% 6rem;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .arch-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .arch-card:hover {
+            border-color: rgba(255, 204, 0, 0.5); /* Yellow hover border */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(255, 204, 0, 0.15);
+        }
+
+        .arch-icon {
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 8px rgba(230, 57, 70, 0.4));
+        }
+
+        .arch-card h3 { margin-bottom: 1rem; font-size: 1.4rem; color: var(--text-main); }
+        .arch-card p { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.7; }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-dim);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-family: monospace;
+        }
+
+        /* --- Interactive Models Section --- */
+        .demos-section {
+            padding: 8rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 { font-size: 3.5rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .section-header p { color: var(--text-dim); font-size: 1.1rem; }
+
+        .demo-container {
+            margin-bottom: 6rem;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .demo-info {
+            padding: 3rem;
+            border-bottom: 1px solid var(--glass-border);
+            background: radial-gradient(circle at top left, rgba(230, 57, 70, 0.08), transparent 50%);
+        }
+
+        .demo-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-title-row h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--accent-secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: inset 0 0 10px rgba(255, 204, 0, 0.05);
+        }
+        
+        .status-dot { width: 6px; height: 6px; background: var(--accent-secondary); border-radius: 50%; box-shadow: 0 0 10px var(--accent-secondary); }
+
+        .demo-description {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            max-width: 900px;
+        }
+
+        .iframe-wrapper {
+            width: 100%;
+            height: 750px;
+            background: #000;
+        }
+
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- Footer --- */
+        footer {
+            padding: 4rem 5% 3rem;
+            border-top: 1px solid var(--glass-border);
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: white; margin-bottom: 1rem; font-family: 'Outfit', sans-serif;}
+        .copyright { color: var(--text-dim); font-size: 0.9rem; }
+
+        @media (max-width: 960px) {
+            .hero h1 { font-size: 3rem; }
+            .demo-title-row { flex-direction: column; gap: 1rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <i data-lucide="layers" style="color: var(--accent-primary);"></i> TextAlchemy
+        </div>
+        <div class="nav-links">
+            <a href="#architecture">Architecture</a>
+            <a href="#htr-model">Handwriting Engine</a>
+            <a href="#ocr-model">Document Parser</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-badge">
+            <i data-lucide="cpu" size="14"></i> Next-Generation Vision Models
+        </div>
+        <h1>Digital clarity from <br><span class="gradient-text">visual chaos.</span></h1>
+        <p>Deploy state-of-the-art neural architectures that instantly transform scribbled notes, crumpled receipts, and chaotic document layouts into flawless, structured datasets.</p>
+        <a href="#htr-model" class="btn btn-primary">Awaken the Engines <i data-lucide="chevron-down" size="18"></i></a>
+    </section>
+
+    <section id="architecture" class="architecture-section">
+        <div class="arch-grid">
+            <div class="arch-card">
+                <div class="arch-icon"><i data-lucide="network" size="32"></i></div>
+                <h3>Decipher the Illegible</h3>
+                <p>Our handwriting model utilizes a Convolutional Recurrent Neural Network (CRNN) that doesn't just scan; it understands context. By combining residual visual blocks with Bi-LSTMs and CTC decoding, it flawlessly interprets overlapping cursive strokes without needing strict character boundaries.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">PyTorch</span>
+                    <span class="tech-tag">Bi-LSTM</span>
+                    <span class="tech-tag">Beam Search</span>
+                </div>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon"><i data-lucide="scan" size="32"></i></div>
+                <h3>Beyond Simple OCR</h3>
+                <p>Our document parser is built on an advanced Vision-Language Model (VLM) that abandons brittle, hard-coded bounding boxes. It uses multi-head self-attention mechanisms to literally 'see' the semantic layout of unstructured forms, extracting perfect key-value pairs zero-shot.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Vision Transformer</span>
+                    <span class="tech-tag">Zero-Shot Extraction</span>
+                    <span class="tech-tag">JSON Parsing</span>
+                </div>
+            </div>
+            <div class="arch-card">
+                <div class="arch-icon"><i data-lucide="zap" size="32"></i></div>
+                <h3>Lightning-Fast Inference</h3>
+                <p>Heavy neural networks shouldn't mean slow performance. We compile our PyTorch graphs down to Open Neural Network Exchange (ONNX) formats, running directly on highly optimized C++ runtimes. This yields blistering, sub-second transcription speeds even on standard CPU infrastructure.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">ONNX Runtime</span>
+                    <span class="tech-tag">Graph Optimization</span>
+                    <span class="tech-tag">Low Latency</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demos-section">
+        <div class="section-header">
+            <h2>Awaken the <span class="gradient-text">Engines</span></h2>
+            <p>Upload your own images and stress-test the model pipelines in real-time.</p>
+        </div>
+
+        <div class="demo-container" id="htr-model">
+            <div class="demo-info">
+                <div class="demo-title-row">
+                    <div>
+                        <h3>Handwritten Text Recognition (HTR)</h3>
+                    </div>
+                    <div class="status-badge"><span class="status-dot"></span> Pipeline Active</div>
+                </div>
+                <p class="demo-description">Upload an image of handwritten notes. The model isolates individual text lines and applies Word Beam Search via a prefix tree dictionary to intelligently predict and correct spelling during the decoding phase.</p>
+            </div>
+            <div class="iframe-wrapper">
+                <iframe 
+                    src="https://majshekhitbp1234-htr-model.hf.space" 
+                    allow="accelerometer; camera; encrypted-media; gyroscope; microphone; clipboard-read; clipboard-write"
+                    sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="demo-container" id="ocr-model">
+            <div class="demo-info">
+                <div class="demo-title-row">
+                    <div>
+                        <h3>Document Structure Parser</h3>
+                    </div>
+                    <div class="status-badge"><span class="status-dot"></span> Pipeline Active</div>
+                </div>
+                <p class="demo-description">Upload a complex document, receipt, or invoice. The Vision-Language Model analyzes the visual topography and strictly formats the output into clean, structured JSON key-value pairs representing the parsed entity data.</p>
+            </div>
+            <div class="iframe-wrapper">
+                <iframe 
+                    src="https://invoice-info-structured-extraction-using-ocr-gemini-fgz4mwp5om.streamlit.app/?embed=true">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">TextAlchemy</div>
+        <div class="copyright">
+            &copy; 2026 TextAlchemy Research. Built for complex data extraction.
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
