@@ -45,6 +45,8 @@ ScriptSense utilizes a decentralized hub-and-spoke model:
 **Model 3 (Image to text Extraction):** Flask API (Port 5000) orchestrating Tesseract and Gemini LLM for semantic extraction.  
 **Model 3 GitHub Repo Link:** [https://github.com/gauravsinghshekhawat1904/Invoice-Info-Structured-Extraction-using-OCR-Gemini]
 
+<img width="967" height="892" alt="image" src="https://github.com/user-attachments/assets/5f6f73e4-3e2a-4d09-afb8-e65a42d3d375" />
+
 
 **Technology Stack:**
 
@@ -54,3 +56,6 @@ ScriptSense utilizes a decentralized hub-and-spoke model:
 **Web Frameworks** Flask, Streamlit, Gradio.  
 **Generative AI:** Google Gemini API.  
 **Security:** python-dotenv (environment isolation). 
+
+<img width="1368" height="903" alt="image" src="https://github.com/user-attachments/assets/579c89f1-1789-420e-996a-f97a4c022815" />
+
