@@ -1,34 +1,38 @@
-**ScriptSense: Automated Multi-modal Document Intelligence & Text Extraction System
-******ScriptSense is a robust, multi-modal automated document intelligence platform designed to decode unstructured visual entropy. It bridges the gap between physical ink, chaotic pixels, and actionable structured data.
+**ScriptSense: Automated Multi-modal Document Intelligence & Text Extraction System**
+ScriptSense is a robust, multi-modal automated document intelligence platform designed to decode unstructured visual entropy. It bridges the gap between physical ink, chaotic pixels, and actionable structured data.
 
-**Project Overview:
-**Script Sense addresses the industrial challenge of digitizing physical documents that contain unconstrained human handwriting, heavily degraded printed text, or complex invoice layouts. By employing a three-tier architectural model, it provides specialized processing for distinct document categories. 
+**Project Overview:**
+Script Sense addresses the industrial challenge of digitizing physical documents that contain unconstrained human handwriting, heavily degraded printed text, or complex invoice layouts. By employing a three-tier architectural model, it provides specialized processing for distinct document categories. 
 
-**Key Features:
-**
-Detect and read Handwritten Text Recognition system(HTR): Uses a U-Net-based Fully Convolutional Network for spatial word detection and a Convolutional Recurrent Neural Network (CRNN) with CTC Word Beam Search decoding for accurate sequence transcription.  
+**Key Features:**
 
-Industrial PDF to text OCR: Leverages deterministic computer vision (OpenCV) for low-pass filtering, adaptive binarization, and morphological dilation to clean degraded documents before Tesseract processing. 
+**Detect and read Handwritten Text Recognition system(HTR):** Uses a U-Net-based Fully Convolutional Network for spatial word detection and a Convolutional Recurrent Neural Network (CRNN) with CTC Word Beam Search decoding for accurate sequence transcription.  
 
-Image to text Extractor: Utilizes Generative AI (Google Gemini LLM) to bridge the gap between raw OCR strings and structured database schemas through zero-shot semantic extraction of key-value pairs.  
+**Industrial PDF to text OCR:** Leverages deterministic computer vision (OpenCV) for low-pass filtering, adaptive binarization, and morphological dilation to clean degraded documents before Tesseract processing. 
 
-****System Architecture:
-**
-**ScriptSense utilizes a decentralized hub-and-spoke model:  
+**Image to text Extractor:** Utilizes Generative AI (Google Gemini LLM) to bridge the gap between raw OCR strings and structured database schemas through zero-shot semantic extraction of key-value pairs.  
 
-Central Web Hub: A unified frontend (HTML/CSS/JS) that routes user requests based on document type.  
+**System Architecture:**
 
-Spoke 1 (HTR Pipeline): Gradio server (Port 7860) using ONNX Runtime for deep learning inference.  
+ScriptSense utilizes a decentralized hub-and-spoke model:  
 
-Spoke 2 (PDF Pipeline): Streamlit server (Port 8501) for batch processing using OpenCV filters and Tesseract.  
+**Central Web Hub:** A unified frontend (HTML/CSS/JS) that routes user requests based on document type.  
+**ScriptSense Frontend web interface link:** [https://gauravsinghshekhawat1904.github.io/ScriptSense/]
 
-Spoke 3 (Invoice API): Flask API (Port 5000) orchestrating Tesseract and Gemini LLM for semantic extraction.  
+**Model 1 (HTR Pipeline):** Gradio server (Port 7860) using ONNX Runtime for deep learning inference.  
+**Model 1 Hugging Face Repo Link:** [https://huggingface.co/spaces/majshekhitbp1234/htr_model](https://huggingface.co/spaces/majshekhitbp1234/htr_model/tree/main)
 
-Technology Stack
+**Model 2 (PDF Pipeline):** Streamlit server (Port 8501) for batch processing using OpenCV filters and Tesseract. 
+**Model 2 GitHub Repo Link**: [https://github.com/gauravsinghshekhawat1904/PDF-To-Text-OCR-.]
 
-Deep Learning: PyTorch (Research), ONNX Runtime (Production Edge Inference).  
-Computer Vision: OpenCV, Pillow (PIL).  
-OCR Engine: Tesseract-OCR (v5+).  
-Web Frameworks: Flask, Streamlit, Gradio.  
-Generative AI: Google Gemini API.  
-Security: python-dotenv (environment isolation). 
+**Model 3 (Image to text Extraction):** Flask API (Port 5000) orchestrating Tesseract and Gemini LLM for semantic extraction.  
+**Model 3 GitHub Repo Link:** [https://github.com/gauravsinghshekhawat1904/Invoice-Info-Structured-Extraction-using-OCR-Gemini]
+
+**Technology Stack:**
+
+**Deep Learning:** PyTorch (Research), ONNX Runtime (Production Edge Inference).  
+**Computer Vision:** OpenCV, Pillow (PIL).  
+**OCR Engine:** Tesseract-OCR (v5+).  
+**Web Frameworks** Flask, Streamlit, Gradio.  
+**Generative AI:** Google Gemini API.  
+**Security:** python-dotenv (environment isolation). 
