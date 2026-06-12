@@ -8,6 +8,8 @@ Script Sense addresses the industrial challenge of digitizing physical documents
 <img width="1717" height="746" alt="image" src="https://github.com/user-attachments/assets/743b69ea-ad67-4dc1-9534-82322d5a9ac3" />
 <img width="1723" height="846" alt="image" src="https://github.com/user-attachments/assets/2f8af597-c251-4762-a18a-bc5d290e6f44" />
 <img width="1425" height="840" alt="image" src="https://github.com/user-attachments/assets/4c37b855-c36b-4ddb-9f11-c1c79e27aa2a" />
+<img width="1386" height="837" alt="image" src="https://github.com/user-attachments/assets/95fec7c2-0d54-415d-87f2-b53cc42d652e" />
+<img width="1383" height="827" alt="image" src="https://github.com/user-attachments/assets/329072bb-cb76-4641-a0fc-3c2267001e8c" />
 <img width="603" height="935" alt="image" src="https://github.com/user-attachments/assets/3f557c66-c3c3-4f32-8a0d-44a5126d8a47" />
 <img width="602" height="823" alt="image" src="https://github.com/user-attachments/assets/d1e8e5fe-ded7-4fc8-9568-4c88993823d0" />
 <img width="720" height="727" alt="image" src="https://github.com/user-attachments/assets/fb34b084-114b-4a10-b935-09c3358b6a44" />
